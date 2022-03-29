@@ -1,3 +1,7 @@
+# Bookmark Manager Project
+My Bookmark Manager app: the PostgreSQL database management system have to be installed on your system. 
+
+## Psql
 01_create_bookmarks_table
 1. Connect to psql via the terminal
 2. Create the database with the psq command 'CREATE DATABASE bookmark_manager;'
