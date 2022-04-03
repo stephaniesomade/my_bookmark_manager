@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require_relative './lib/bookmarks'
 require_relative './database_connection_setup.rb'
 require 'uri'
+require './lib/user'
 require 'sinatra/flash'
 
 class BookmarkManager < Sinatra::Base
@@ -19,6 +20,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks' do
+    @user = User.find(id: session[:user_id])
     @bookmarks = Bookmark.all
     erb :'bookmarks/index'
   end
@@ -65,11 +67,12 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/users/new' do 
-    erb :"users/new"
+    erb :'users/new'
   end 
 
   post '/users' do
-    User.create(email: params[:email], password: paras[:password])
+    user = User.create(email: params['email'], password: params['password'])
+    session[:user_id] = user.id
     redirect '/bookmarks'
   end 
 
